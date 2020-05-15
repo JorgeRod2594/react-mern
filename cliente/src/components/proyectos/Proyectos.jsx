@@ -1,6 +1,7 @@
 import React from 'react';
 import Sidebar from '../layout/Sidebar'
 import Bar from '../layout/Bar'
+import FormTarea from '../tareas/FormTarea'
 
 const Proyectos = () => {
     //Este es el contenedor principal
@@ -15,6 +16,7 @@ const Proyectos = () => {
             <div className="seccion-principal">
                 <Bar />
                 <main>
+                    <FormTarea />
                     <div className="contenedor-tareas">
 
                     </div>

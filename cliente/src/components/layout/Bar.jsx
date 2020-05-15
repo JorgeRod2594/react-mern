@@ -7,10 +7,10 @@ const Bar = () => {
 //para cerrar sesion
     return ( 
         <header className="app-header">
-            <a className="nombre-usuario">Hola<span> Jorge Rojas</span></a>
+            <a href="!#" className="nombre-usuario">Hola<span> Jorge Rojas</span></a>
 
             <nav className="nav-principal">
-                <a href="#!">Cerrar sesion</a>
+                <a href="!#">Cerrar sesion</a>
             </nav>
         </header>
      );
