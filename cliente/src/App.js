@@ -10,7 +10,7 @@ import Proyectos from './components/proyectos/Proyectos'
 //En <Route exact path="/" component={Proyectos} /> debera estar logeado para
 //poder visualizar este componente 
 
-
+//Aquí se hace la creacion de las rutas para s paginas
 function App() {
   return (
     <Router>

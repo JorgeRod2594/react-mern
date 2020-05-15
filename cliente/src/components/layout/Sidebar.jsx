@@ -5,7 +5,7 @@ import ListadoProyectos from '../proyectos/ListadoProyectos'
 const Sidebar = () => {
     return ( 
         <aside>
-            <h1>MERN<span>Tasks</span></h1>
+            <h1>DoDo<span>Tasks</span></h1>
 
             <NuevoProyecto />
             
