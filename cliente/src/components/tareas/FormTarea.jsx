@@ -3,6 +3,7 @@ import React from 'react'
 const FormTarea = () => {
 
 //Este componente sera el formulario de las tareas asociadas aun proyecto
+//Con este formulario se utilizará para crear una tarea o modificar una existente.
     return ( 
         <div className="formulario">
             <form>
