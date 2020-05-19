@@ -27,6 +27,7 @@ const ListadoTareas = () => {
 
                     : tareasProyecto.map(tarea => ( //damos por implicito el return del componente tarea
                             <Tarea 
+                                //falta el key
                                 tarea={tarea}
                             /> //como prop hacia el componente.
                     ))

@@ -10,7 +10,13 @@ const ProyectoState = props => {
     //Definimos el state inicial similiar a redux mediante initialState que siempre es un objeto
     const initialState = {
         //este atributo es para inicializar el componente nuevo proyecto
-        formulario: false
+        formulario: false,
+        proyectos: [
+            {id: 1, nombre:'Tienda virtual'},
+            {id: 2, nombre: 'Intranet'},
+            {id: 3, nombre: 'Diseño de sitios web'},
+            {id: 4, nombre: 'Diseño de sitios admin'}
+        ]
     }
     //Cuando utilizamos useReducer es como si utilizaramos useState aplicando destructurin
     //Creamos el dispatch para ejecutar las acciones
@@ -37,6 +43,8 @@ const ProyectoState = props => {
         <proyectoContext.Provider
             value={{
                 formulario: state.formulario,
+                proyectos: state.proyectos,
+
                 mostrarFormulario
             }}
         >
