@@ -1,6 +1,20 @@
-import React, {Fragment, useState} from 'react'
+import React, {Fragment, useState, useContext} from 'react'
+//importamos el context
+import proyectoContext from '../../context/proyectos/proyectoContext'
+//Una de las grandes ventajas de implemtar esta formad e trabajo es que no
+//tenemos que estar pasando props por todos los componentes, es como tener
+//toda la complejidad que te da Redux combinado con la sencillez que te da
+//context
 
 const NuevoProyecto = () => {
+
+    //Obtenemos qel state del formulario, de esta forma tenemos este componente
+    //y podemos consumirlo sin necesidad de pasar props en cualquier parte del
+    //arbol de componentes.
+    const proyectosContext = useContext(proyectoContext);
+    //De esta forma, todo las funciones que se definan en proyectoState podremos
+    //implementarlo con la linea de arrbia e importanto el context a utilizar.
+    const {formulario} = proyectosContext; //obtenemos el valor del state formulario con destructuring
 
     //Definimos el sate de este componente
     //Creamos un objeto para asociarlo con un id y no tener problemas
@@ -44,24 +58,28 @@ const NuevoProyecto = () => {
             >Nuevo proyecto
             </button>
 
-            <form
-                className="formulario-nuevo-proyecto"
-                onSubmit={onSubmitProyecto}
-            >
-                <input 
-                type="text"
-                className="input-text"
-                placeholder="Nombre del proyecto"
-                onChange={onChangeProyecto}
-                value={nombre}
-                name="nombre"/>
-
-                <input 
-                type="submit"
-                className="btn btn-primario btn-block"
-                value="Agregar proyecto"/>
-
-            </form>
+            {formulario
+                ?( //si el valor del state es true regresa esto
+                    <form
+                    className="formulario-nuevo-proyecto"
+                    onSubmit={onSubmitProyecto}
+                    >
+                        <input 
+                        type="text"
+                        className="input-text"
+                        placeholder="Nombre del proyecto"
+                        onChange={onChangeProyecto}
+                        value={nombre}
+                        name="nombre"/>
+        
+                        <input 
+                        type="submit"
+                        className="btn btn-primario btn-block"
+                        value="Agregar proyecto"/>
+    
+                    </form>
+                ): null //si es false no muestres y no regreses nada
+            }
         </Fragment>
      );
 }
