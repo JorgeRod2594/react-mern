@@ -14,7 +14,8 @@ const NuevoProyecto = () => {
     const proyectosContext = useContext(proyectoContext);
     //De esta forma, todo las funciones que se definan en proyectoState podremos
     //implementarlo con la linea de arrbia e importanto el context a utilizar.
-    const {formulario} = proyectosContext; //obtenemos el valor del state formulario con destructuring
+    const {formulario, mostrarFormulario} = proyectosContext; //obtenemos el valor del state formulario con destructuring
+    //como ya tenemos acceso al provider podemos extraer la funcion que creamos en state
 
     //Definimos el sate de este componente
     //Creamos un objeto para asociarlo con un id y no tener problemas
@@ -49,12 +50,18 @@ const NuevoProyecto = () => {
 
     }
 
+    //Mostramos el formulario
+    const mostrarForm = () => {
+        mostrarFormulario();
+    }
+
     //lo importamos al Sidebar donde se utilizará.
     return ( 
         <Fragment>
             <button
             type="button"
             className="btn btn-block btn-primario"
+            onClick={mostrarForm}
             >Nuevo proyecto
             </button>
 
