@@ -11,12 +11,12 @@ const ListadoProyectos = () => {
     //obtenemos la informacion de los proyectos mediante destructuring
     const {proyectos, obtenerProyectos} = proyectosContext;//esto viene desde proyectoState
     //Extraemos también la funcion obtenerProyectos
-    
+
     //Queremos que la funcion obtenerProyectos se ejecute imediatamente cargue este componente
     //para esto utilizamos useEffect
     useEffect(() => {
         obtenerProyectos();
-    }, [])//Para que corra una sola vez y obtenga los proyectos usamos un arreglo vacio
+    },[])//Para que corra una sola vez y obtenga los proyectos usamos un arreglo vacio
 
     //la primera vez que entra a la base de datos será null, por eso es necesaria esta validancion
     //revisar si proyectos tiene contenido

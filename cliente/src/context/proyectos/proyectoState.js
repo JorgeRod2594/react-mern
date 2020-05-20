@@ -1,10 +1,12 @@
 import React, { useReducer } from 'react';
+import {v4 as uuid} from "uuid";
 import proyectoContext from './proyectoContext'
 import proyectoReducer from './proyectoReducer'
 //Aqui vamos a definir el state que va a tener y las diferentes funciones con dispach 
 // hacia los types
 import { FORMULARIO_PROYECTO,
-         OBTENER_PROYECTOS } from '../../types'; //extraemos formulario proyecto de types. 
+         OBTENER_PROYECTOS,
+         AGREGAR_PROYECTOS } from '../../types'; //extraemos formulario proyecto de types. 
 
 //Este es el state incial de toda la administracion del proyecto (creacion, eliminacion,etc..)
 const ProyectoState = props => {
@@ -47,6 +49,16 @@ const ProyectoState = props => {
         })
     }
 
+    //Agregar un nuevo proyecto y le agregamos un id para poder identificarlo
+    const agregarProyecto = (proyecto) => {
+        proyecto.id = uuid();//Le agregamos un id
+        //y lo insertamos en el state
+        dispatch({
+            type: AGREGAR_PROYECTOS,
+            payload: proyecto
+        })
+    }
+
     //Retornamo el provider donde se crearan los datos 
     //Se le pasa props.children para que lo que le los diferentes componentes
     // hijo que sean parte de este provider que son consumer puedan compartirse datos 
@@ -61,7 +73,8 @@ const ProyectoState = props => {
                 proyectos: state.proyectos,
 
                 mostrarFormulario,
-                obtenerProyectos
+                obtenerProyectos,
+                agregarProyecto
             }}
         >
             {props.children} 

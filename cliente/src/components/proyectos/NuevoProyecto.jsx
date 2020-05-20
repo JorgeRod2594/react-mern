@@ -14,7 +14,7 @@ const NuevoProyecto = () => {
     const proyectosContext = useContext(proyectoContext);
     //De esta forma, todo las funciones que se definan en proyectoState podremos
     //implementarlo con la linea de arrbia e importanto el context a utilizar.
-    const {formulario, mostrarFormulario} = proyectosContext; //obtenemos el valor del state formulario con destructuring
+    const {formulario, mostrarFormulario, agregarProyecto} = proyectosContext; //obtenemos el valor del state formulario con destructuring
     //como ya tenemos acceso al provider podemos extraer la funcion que creamos en state
 
     //Definimos el sate de este componente
@@ -43,10 +43,18 @@ const NuevoProyecto = () => {
         e.preventDefault();
 
         //Validar los datos
+        if (nombre === '') {
+            return;//para que no se siga ejecutando el código
+        }
 
-        //Agregar al state
+        //Agregar al state pasandole el nuevo proyecto
+        agregarProyecto(proyecto);
+        //Esto se va al proyectoState
 
-        //reainiciar el form
+        //reainiciar el form asignando la funcion guardarProyecto asignando al nombre un string vacio.
+        guardarProyecto({
+            nombre: ''
+        })
 
     }
 
