@@ -3,24 +3,30 @@ import proyectoContext from './proyectoContext'
 import proyectoReducer from './proyectoReducer'
 //Aqui vamos a definir el state que va a tener y las diferentes funciones con dispach 
 // hacia los types
-import { FORMULARIO_PROYECTO } from '../../types'; //extraemos formulario proyecto de types. 
+import { FORMULARIO_PROYECTO,
+         OBTENER_PROYECTOS } from '../../types'; //extraemos formulario proyecto de types. 
 
 //Este es el state incial de toda la administracion del proyecto (creacion, eliminacion,etc..)
 const ProyectoState = props => {
+
+    //Lo cambiamos aqui porque simula la insercion de la base de datos
+    const proyectos = [
+        {id: 1, nombre:'Tienda virtual'},
+        {id: 2, nombre: 'Intranet'},
+        {id: 3, nombre: 'Diseño de sitios web'},
+        {id: 4, nombre: 'Diseño de sitios admin'}
+    ]
+
     //Definimos el state inicial similiar a redux mediante initialState que siempre es un objeto
     const initialState = {
         //este atributo es para inicializar el componente nuevo proyecto
         formulario: false,
-        proyectos: [
-            {id: 1, nombre:'Tienda virtual'},
-            {id: 2, nombre: 'Intranet'},
-            {id: 3, nombre: 'Diseño de sitios web'},
-            {id: 4, nombre: 'Diseño de sitios admin'}
-        ]
+        proyectos: []
     }
     //Cuando utilizamos useReducer es como si utilizaramos useState aplicando destructurin
     //Creamos el dispatch para ejecutar las acciones
     const [state, dispatch] = useReducer(proyectoReducer, initialState)
+    
 
     //Aqui de crean las funciones para el CRUD de proyectos
     /*En esta parte podemos ver la importancia del dispatch porque le pasamos 
@@ -29,6 +35,15 @@ const ProyectoState = props => {
     const mostrarFormulario = () => {//Esta parte llama las funciones del reducer
         dispatch({//LE indicamos que el type que evaluara el switch del reducer
             type: FORMULARIO_PROYECTO //sera formulario proyecto.Tambien lo importamos en proyectoReducer
+        })
+    }
+
+    //Obtener los proyectos y los mandamos al reducer para verificar el case
+    //Siempre lo que toma mi funcion como parametro sera mi payload en cualquier caso
+    const obtenerProyectos = () => {
+        dispatch({
+            type: OBTENER_PROYECTOS,
+            payload: proyectos
         })
     }
 
@@ -45,7 +60,8 @@ const ProyectoState = props => {
                 formulario: state.formulario,
                 proyectos: state.proyectos,
 
-                mostrarFormulario
+                mostrarFormulario,
+                obtenerProyectos
             }}
         >
             {props.children} 
