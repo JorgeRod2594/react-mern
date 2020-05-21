@@ -1,11 +1,25 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 import Tarea from './Tarea'
+//importamos el context
+import proyectoContext from '../../context/proyectos/proyectoContext'
 //Este componente se muestra en Proyectos
+
 
 const ListadoTareas = () => {
 //El objetivo de este componente es que al dar clic en algun proyecto, la información
 //del mismo se muestre en este componente para poder editarlo y en caso de querer crear
 //una tarea para un proyecto sirva para crear la misma.
+
+    //creamos una constante que le pasamos la funcion useContext con parametro proyectoConttext
+    const proyectosContext = useContext(proyectoContext);
+    //obtenemos la informacion de los proyectos mediante destructuring
+    const {proyectoselect} = proyectosContext;//esto viene desde proyectoState
+    //Extraemos el proyecto seleccionado
+    //Si no hay proyecto seleccionado 
+    if(!proyectoselect) return <h2>Selecciona un proyecto.</h2>;
+
+    //En caso contrario, aplicamos array destructuring para extraer el proyecto seleccionado
+    const [proyectoSeleccionado] = proyectoselect;
 
     //estos datos son temporales, sirven para verificar el funcionamiento del componente
 
@@ -19,7 +33,7 @@ const ListadoTareas = () => {
 
     return ( 
         <Fragment>
-            <h2>Proyecto: Tienda virtual</h2> 
+            <h2>Proyecto: {proyectoSeleccionado.nombre}</h2> 
 
             <ul className="listado-tareas">
                 {tareasProyecto.length === 0 //utilizamos un ternario para mostrar la información

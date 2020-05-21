@@ -6,7 +6,7 @@ import proyectoContext from '../../context/proyectos/proyectoContext'
 const ListadoProyectos = () => {
     //Este componente lo llamamos en Sidebar.jsx
 
-    //Extraemos proyectos de state inicial mediante destructuring
+    //creamos una constante que le pasamos la funcion useContext con parametro proyectoConttext
     const proyectosContext = useContext(proyectoContext);
     //obtenemos la informacion de los proyectos mediante destructuring
     const {proyectos, obtenerProyectos} = proyectosContext;//esto viene desde proyectoState

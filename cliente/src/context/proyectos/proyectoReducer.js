@@ -3,7 +3,6 @@ import { FORMULARIO_PROYECTO,
          AGREGAR_PROYECTOS,
          VALIDAR_FORMULARIO,
          PROYECTO_SELECCIONADO } from '../../types'
-import Proyecto from '../../components/proyectos/Proyecto'
 
 export default (state, action) => {
     //El reducer funciona igual que en redux, unicamente cambia el state
