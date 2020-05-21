@@ -7,7 +7,8 @@ import proyectoReducer from './proyectoReducer'
 import { FORMULARIO_PROYECTO,
          OBTENER_PROYECTOS,
          AGREGAR_PROYECTOS,
-         VALIDAR_FORMULARIO } from '../../types'; //extraemos formulario proyecto de types. 
+         VALIDAR_FORMULARIO,
+         PROYECTO_SELECCIONADO } from '../../types'; //extraemos formulario proyecto de types. 
 
 //Este es el state incial de toda la administracion del proyecto (creacion, eliminacion,etc..)
 const ProyectoState = props => {
@@ -25,8 +26,9 @@ const ProyectoState = props => {
         //este atributo es para inicializar el componente nuevo proyecto
         formulario: false,
         proyectos: [],
-        errorformulario: false //Esta es una bandera para revisar errores en el formulario para registrar proyecto.
+        errorformulario: false, //Esta es una bandera para revisar errores en el formulario para registrar proyecto.
         //pasamos esto al state
+        proyectoselect: null //Este parametro es para seleccionar el proyecto y poder visualizar sus tareas
     }
     //Cuando utilizamos useReducer es como si utilizaramos useState aplicando destructurin
     //Creamos el dispatch para ejecutar las acciones
@@ -69,6 +71,14 @@ const ProyectoState = props => {
         })
     }
     
+    //Selecciona el proyecto que el usuario de clic por medio se su id
+    const proyectoSelect = (proyectoId) => {
+        dispatch({
+            type: PROYECTO_SELECCIONADO,
+            payload: proyectoId
+        })
+    }
+    
 
     //Retornamo el provider donde se crearan los datos 
     //Se le pasa props.children para que lo que le los diferentes componentes
@@ -83,11 +93,13 @@ const ProyectoState = props => {
                 formulario: state.formulario,
                 proyectos: state.proyectos,
                 errorformulario: state.errorformulario,
+                proyectoselect: state.proyectoselect,
 
                 mostrarFormulario,
                 obtenerProyectos,
                 agregarProyecto,
-                mostrarErrorFormulario
+                mostrarErrorFormulario,
+                proyectoSelect
             }}
         >
             {props.children} 

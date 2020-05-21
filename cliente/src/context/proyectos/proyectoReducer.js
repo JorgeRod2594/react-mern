@@ -1,7 +1,9 @@
 import { FORMULARIO_PROYECTO,
          OBTENER_PROYECTOS,
          AGREGAR_PROYECTOS,
-         VALIDAR_FORMULARIO } from '../../types'
+         VALIDAR_FORMULARIO,
+         PROYECTO_SELECCIONADO } from '../../types'
+import Proyecto from '../../components/proyectos/Proyecto'
 
 export default (state, action) => {
     //El reducer funciona igual que en redux, unicamente cambia el state
@@ -31,6 +33,16 @@ export default (state, action) => {
             return {
                 ...state,
                 errorformulario: true
+            }
+
+        case PROYECTO_SELECCIONADO:
+            return {
+                ...state,//hacemos una copia de state
+                proyectoselect: state.proyectos.filter((proyecto) => (
+                        proyecto.id === action.payload //Si proyecto.id dentro del arreglo de proyecto es igual 
+                        //al payload (pryecto seleccionado) lo extrae y crea un nuevo arreglo que se llamará proyecto.
+                    )
+                )
             }
 
         default: //siempre se retorna un default state
