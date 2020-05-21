@@ -6,7 +6,8 @@ import proyectoReducer from './proyectoReducer'
 // hacia los types
 import { FORMULARIO_PROYECTO,
          OBTENER_PROYECTOS,
-         AGREGAR_PROYECTOS } from '../../types'; //extraemos formulario proyecto de types. 
+         AGREGAR_PROYECTOS,
+         VALIDAR_FORMULARIO } from '../../types'; //extraemos formulario proyecto de types. 
 
 //Este es el state incial de toda la administracion del proyecto (creacion, eliminacion,etc..)
 const ProyectoState = props => {
@@ -23,7 +24,9 @@ const ProyectoState = props => {
     const initialState = {
         //este atributo es para inicializar el componente nuevo proyecto
         formulario: false,
-        proyectos: []
+        proyectos: [],
+        errorformulario: false //Esta es una bandera para revisar errores en el formulario para registrar proyecto.
+        //pasamos esto al state
     }
     //Cuando utilizamos useReducer es como si utilizaramos useState aplicando destructurin
     //Creamos el dispatch para ejecutar las acciones
@@ -59,6 +62,14 @@ const ProyectoState = props => {
         })
     }
 
+    //Valida el formulario por errrores
+    const mostrarErrorFormulario = () => {
+        dispatch({
+            type:VALIDAR_FORMULARIO
+        })
+    }
+    
+
     //Retornamo el provider donde se crearan los datos 
     //Se le pasa props.children para que lo que le los diferentes componentes
     // hijo que sean parte de este provider que son consumer puedan compartirse datos 
@@ -71,10 +82,12 @@ const ProyectoState = props => {
             value={{
                 formulario: state.formulario,
                 proyectos: state.proyectos,
+                errorformulario: state.errorformulario,
 
                 mostrarFormulario,
                 obtenerProyectos,
-                agregarProyecto
+                agregarProyecto,
+                mostrarErrorFormulario
             }}
         >
             {props.children} 

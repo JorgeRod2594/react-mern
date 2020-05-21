@@ -1,6 +1,7 @@
 import { FORMULARIO_PROYECTO,
          OBTENER_PROYECTOS,
-         AGREGAR_PROYECTOS } from '../../types'
+         AGREGAR_PROYECTOS,
+         VALIDAR_FORMULARIO } from '../../types'
 
 export default (state, action) => {
     //El reducer funciona igual que en redux, unicamente cambia el state
@@ -22,7 +23,14 @@ export default (state, action) => {
             return {
                 ...state,//REalizamos una copia del state
                 proyectos: [...state.proyectos, action.payload],//Y al arreglo de objetos (proyectos), le agregamos el nuevo objetvo (el nuevo proyecto).
-                formulario:false //Agregamos false en el formulario para ocultarlo despues de agregar y en NuevoProyecto reiniciamos el form.
+                formulario:false, //Agregamos false en el formulario para ocultarlo despues de agregar y en NuevoProyecto reiniciamos el form.
+                errorformulario:false //Si contiene algo el formulario para crear proyecto oculta el mensaje y lo guarda.
+            }
+        
+        case VALIDAR_FORMULARIO:
+            return {
+                ...state,
+                errorformulario: true
             }
 
         default: //siempre se retorna un default state

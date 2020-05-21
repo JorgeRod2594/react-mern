@@ -14,7 +14,8 @@ const NuevoProyecto = () => {
     const proyectosContext = useContext(proyectoContext);
     //De esta forma, todo las funciones que se definan en proyectoState podremos
     //implementarlo con la linea de arrbia e importanto el context a utilizar.
-    const {formulario, mostrarFormulario, agregarProyecto} = proyectosContext; //obtenemos el valor del state formulario con destructuring
+    const {formulario, errorformulario,
+        mostrarFormulario, agregarProyecto, mostrarErrorFormulario } = proyectosContext; //obtenemos el valor del state formulario con destructuring
     //como ya tenemos acceso al provider podemos extraer la funcion que creamos en state
 
     //Definimos el sate de este componente
@@ -44,6 +45,7 @@ const NuevoProyecto = () => {
 
         //Validar los datos
         if (nombre === '') {
+            mostrarErrorFormulario(); //Ejecutamos la funcion para mandar el state errorformulario como true
             return;//para que no se siga ejecutando el código
         }
 
@@ -94,6 +96,11 @@ const NuevoProyecto = () => {
     
                     </form>
                 ): null //si es false no muestres y no regreses nada
+            }
+
+            {
+                //Validamos el error dentro del formulario, por si esta en blanco, si es true manda el mensaje 
+                errorformulario ? <p className="mensaje error">El nombre del proyecto es obligatorio</p> : null
             }
         </Fragment>
      );
