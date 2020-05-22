@@ -11,19 +11,22 @@ import Proyectos from './components/proyectos/Proyectos'
 //poder visualizar este componente 
 
 import ProyectoState from './context/proyectos/proyectoState'
+import TareaState from './context/tareas/tareaState'
 
 //Aquí se hace la creacion de las rutas para s paginas
 function App() {
   return (
     <ProyectoState>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/nueva-cuenta" component={NuevaCuenta} />
-      
-          <Route exact path="/proyectos" component={Proyectos} />
-        </Switch>
-      </Router>      
+      <TareaState>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Login} />
+            <Route exact path="/nueva-cuenta" component={NuevaCuenta} />
+        
+            <Route exact path="/proyectos" component={Proyectos} />
+          </Switch>
+        </Router>         
+      </TareaState>
     </ProyectoState>
 
   );
