@@ -13,13 +13,19 @@ const ListadoTareas = () => {
     //creamos una constante que le pasamos la funcion useContext con parametro proyectoConttext
     const proyectosContext = useContext(proyectoContext);
     //obtenemos la informacion de los proyectos mediante destructuring
-    const {proyectoselect} = proyectosContext;//esto viene desde proyectoState
+    const {proyectoselect, proyectoDeleted} = proyectosContext;//esto viene desde proyectoState
     //Extraemos el proyecto seleccionado
     //Si no hay proyecto seleccionado 
     if(!proyectoselect) return <h2>Selecciona un proyecto.</h2>;
 
     //En caso contrario, aplicamos array destructuring para extraer el proyecto seleccionado
     const [proyectoSeleccionado] = proyectoselect;
+
+    //Eliminar un proyecto
+    const onClickEliminarP = () => {
+        proyectoDeleted(proyectoSeleccionado.id)
+        
+    }
 
     //estos datos son temporales, sirven para verificar el funcionamiento del componente
 
@@ -51,6 +57,7 @@ const ListadoTareas = () => {
             <button 
                 type="button"
                 className="btn btn-eliminar"
+                onClick={onClickEliminarP}
             >Eliminar proyecto &times;</button>
         </Fragment>
      );

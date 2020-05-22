@@ -8,7 +8,8 @@ import { FORMULARIO_PROYECTO,
          OBTENER_PROYECTOS,
          AGREGAR_PROYECTOS,
          VALIDAR_FORMULARIO,
-         PROYECTO_SELECCIONADO } from '../../types'; //extraemos formulario proyecto de types. 
+         PROYECTO_SELECCIONADO,
+         ELIMINAR_PROYECTO } from '../../types'; //extraemos formulario proyecto de types. 
 
 //Este es el state incial de toda la administracion del proyecto (creacion, eliminacion,etc..)
 const ProyectoState = props => {
@@ -79,6 +80,14 @@ const ProyectoState = props => {
         })
     }
     
+    //Emiliminar el proyecto que el usuario selecciona por medio de su id
+    const proyectoDeleted = (proyectoId) => {
+        dispatch({
+            type: ELIMINAR_PROYECTO,
+            payload: proyectoId
+        })
+    }
+    
 
     //Retornamo el provider donde se crearan los datos 
     //Se le pasa props.children para que lo que le los diferentes componentes
@@ -99,7 +108,8 @@ const ProyectoState = props => {
                 obtenerProyectos,
                 agregarProyecto,
                 mostrarErrorFormulario,
-                proyectoSelect
+                proyectoSelect,
+                proyectoDeleted
             }}
         >
             {props.children} 

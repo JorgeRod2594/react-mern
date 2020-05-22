@@ -20,7 +20,7 @@ const ListadoProyectos = () => {
 
     //la primera vez que entra a la base de datos será null, por eso es necesaria esta validancion
     //revisar si proyectos tiene contenido
-    if(proyectos.length === 0) return null;
+    if(proyectos.length === 0) return <p>No hay proyectos, comienza creando uno.</p>;
 
     //Ahora queremos que el state
 
