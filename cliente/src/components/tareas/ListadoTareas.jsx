@@ -2,6 +2,7 @@ import React, { Fragment, useContext } from 'react'
 import Tarea from './Tarea'
 //importamos el context
 import proyectoContext from '../../context/proyectos/proyectoContext'
+import tareaContext from '../../context/tareas/tareaContext'
 //Este componente se muestra en Proyectos
 
 
@@ -15,6 +16,11 @@ const ListadoTareas = () => {
     //obtenemos la informacion de los proyectos mediante destructuring
     const {proyectoselect, proyectoDeleted} = proyectosContext;//esto viene desde proyectoState
     //Extraemos el proyecto seleccionado
+
+    //Obtenemos las tareas del proyecto seleccionado
+    const tareasContext = useContext(tareaContext);
+    const { tareasproyecto } = tareasContext;
+
     //Si no hay proyecto seleccionado 
     if(!proyectoselect) return <h2>Selecciona un proyecto.</h2>;
 
@@ -28,24 +34,18 @@ const ListadoTareas = () => {
     }
 
     //estos datos son temporales, sirven para verificar el funcionamiento del componente
-
     //El primer key es el nombre de la tarea y el segudo si esta terminado o no.
-    const tareasProyecto = [
-        {nombre: 'Elegir Plataforma', estado: true},
-        {nombre: 'Elegir colores', estado: false},
-        {nombre: 'Elegir plataformas de pago', estado: true},
-        {nombre: 'Elegir hosting', estado: false},
-    ];
+    // const tareasProyecto = []; sustituimos por tareasproyecto que viene del state
 
     return ( 
         <Fragment>
             <h2>Proyecto: {proyectoSeleccionado.nombre}</h2> 
 
             <ul className="listado-tareas">
-                {tareasProyecto.length === 0 //utilizamos un ternario para mostrar la información
+                {tareasproyecto.length === 0 //utilizamos un ternario para mostrar la información
                     ? (<li className="tarea"><p>No hay tareas</p></li>)
 
-                    : tareasProyecto.map(tarea => ( //damos por implicito el return del componente tarea
+                    : tareasproyecto.map(tarea => ( //damos por implicito el return del componente tarea
                             <Tarea 
                                 //falta el key
                                 tarea={tarea}
