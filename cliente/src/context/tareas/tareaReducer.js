@@ -1,6 +1,6 @@
 import { TAREAS_PROYECTO,
-         AGREGAR_TAREAS_P
-                         } from '../../types';
+         AGREGAR_TAREAS_P,
+         VALIDAR_TAREA } from '../../types';
 
 export default (state, action) => {
     switch(action.type){
@@ -15,7 +15,14 @@ export default (state, action) => {
         case AGREGAR_TAREAS_P:
             return {
                 ...state,
-                tareas: [...state.tareas, action.payload]//creamos un nuevo arreglo de tareas + la nueva tarea a guardar
+                tareas: [...state.tareas, action.payload],//creamos un nuevo arreglo de tareas + la nueva tarea a guardar
+                errortarea: false
+            }
+
+        case VALIDAR_TAREA:
+            return {
+                ...state,
+                errortarea: true
             }
 
         default: //siempre se retorna un default state

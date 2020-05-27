@@ -4,7 +4,8 @@ import tareaContext from './tareaContext'
 import tareaReducer from './tareaReducer'
 
 import { TAREAS_PROYECTO, 
-         AGREGAR_TAREAS_P } from '../../types';
+         AGREGAR_TAREAS_P,
+         VALIDAR_TAREA } from '../../types';
 
 const TareaState = (props) => {
 
@@ -16,8 +17,9 @@ const TareaState = (props) => {
             {nombre: 'Elegir plataformas de pago', estado: true, proyectoId: 3},
             {nombre: 'Elegir hosting', estado: false, proyectoId: 4},
         ], //arreglo vacio de tareas
-        tareasproyecto: null //Esta es la vista default para no seleccionar ninguna tarea
+        tareasproyecto: null, //Esta es la vista default para no seleccionar ninguna tarea
         //hasta que seleccione el usuario
+        errortarea: false
     }
 
     //Creamos el dispatch para ejecutar las acciones
@@ -41,15 +43,24 @@ const TareaState = (props) => {
         })
     }
     
+    //Validamos la tarea creada y mostramos el error 
+    const validarTarea = () => {
+        dispatch({
+            type: VALIDAR_TAREA
+        })
+    }
+    
 
     return ( 
         <tareaContext.Provider
             value = {{
                 tareas: state.tareas, //Le pasamos el arreglo de taraes
                 tareasproyecto: state.tareasproyecto,
+                errortarea: state.errortarea,
 
                 obtenerTareas,
-                agregarTarea
+                agregarTarea,
+                validarTarea
             }}
         >
             {props.children} 

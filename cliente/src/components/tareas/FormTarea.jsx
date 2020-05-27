@@ -13,7 +13,7 @@ const FormTarea = () => {
 
     //Obtenemos la funcion del contexto tarea
     const tareasContext = useContext(tareaContext);
-    const {agregarTarea} = tareasContext;
+    const { errortarea, obtenerTareas, agregarTarea, validarTarea } = tareasContext;
 
     //State del formulario. tarea es un objeto porque le tenemos que pasar un id y el id al proyecto que pertenece
     const [tarea, guardarTarea] = useState({
@@ -44,15 +44,21 @@ const FormTarea = () => {
         e.preventDefault();
 
         //Validar el objeto tarea
-
-        //Pasar la validacion
+        if(nombre.trim() === '') {//trim es por si el usuario pone espacios los elimine
+            validarTarea();
+            return; //Para que detenga la ejecución
+        }//Pasar la validacion
 
         //agregar la nueva tarea al state de tareas
         tarea.proyectoId = proyectoSeleccionado.id; //Al objeto tarea le agregamos el id del proyecto seleccionado
         tarea.estado = false; //Por default todos los proyecto inicializan en false 
         agregarTarea(tarea);
+        //Volvemos a obtener las tareas del proyecto seleccionado
+        obtenerTareas(proyectoSeleccionado.id);
         //Reiniciamos el form
-        
+        guardarTarea({
+            nombre: ''
+        })
     }
 
     return ( 
@@ -79,6 +85,9 @@ const FormTarea = () => {
                     />
                 </div>
             </form>
+            {errortarea 
+            ? <p className="mensaje error">El nombre de tarea es obligatorio</p> 
+            : null}
         </div>
      );
 }
