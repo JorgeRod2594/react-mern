@@ -4,18 +4,23 @@ import tareaContext from './tareaContext'
 import tareaReducer from './tareaReducer'
 
 import { TAREAS_PROYECTO, 
-         AGREGAR_TAREAS_P,
-         VALIDAR_TAREA } from '../../types';
+         AGREGAR_TAREA_P,
+         VALIDAR_TAREA_P,
+         ELIMINAR_TAREA_P } from '../../types';
 
 const TareaState = (props) => {
 
     //Definimos el state inicial
     const initialState = {
         tareas: [
-            {nombre: 'Elegir Plataforma', estado: true, proyectoId: 1},
-            {nombre: 'Elegir colores', estado: false, proyectoId: 2},
-            {nombre: 'Elegir plataformas de pago', estado: true, proyectoId: 3},
-            {nombre: 'Elegir hosting', estado: false, proyectoId: 4},
+            {id: 1, nombre: 'Elegir Plataforma', estado: true, proyectoId: 1},
+            {id: 2, nombre: 'Elegir colores', estado: false, proyectoId: 2},
+            {id: 3, nombre: 'Elegir plataformas de pago', estado: true, proyectoId: 3},
+            {id: 4, nombre: 'Elegir hosting', estado: false, proyectoId: 4},
+            {id: 5, nombre: 'Elegir Plataforma', estado: true, proyectoId: 2},
+            {id: 6, nombre: 'Elegir colores', estado: false, proyectoId: 2},
+            {id: 7, nombre: 'Elegir plataformas de pago', estado: true, proyectoId: 4},
+            {id: 8, nombre: 'Elegir hosting', estado: false, proyectoId: 1},
         ], //arreglo vacio de tareas
         tareasproyecto: null, //Esta es la vista default para no seleccionar ninguna tarea
         //hasta que seleccione el usuario
@@ -38,7 +43,7 @@ const TareaState = (props) => {
     //Agregar tarea a un proyecto seleccionado
     const agregarTarea = (tarea) => {
         dispatch({
-            type: AGREGAR_TAREAS_P,
+            type: AGREGAR_TAREA_P,
             payload: tarea
         })
     }
@@ -46,7 +51,15 @@ const TareaState = (props) => {
     //Validamos la tarea creada y mostramos el error 
     const validarTarea = () => {
         dispatch({
-            type: VALIDAR_TAREA
+            type: VALIDAR_TAREA_P
+        })
+    }
+    
+    //Eliminar la tarea seleccionada del proyecto por su id
+    const eliminarTarea = (id) => {
+        dispatch({
+            type: ELIMINAR_TAREA_P,
+            payload: id
         })
     }
     
@@ -60,7 +73,8 @@ const TareaState = (props) => {
 
                 obtenerTareas,
                 agregarTarea,
-                validarTarea
+                validarTarea,
+                eliminarTarea
             }}
         >
             {props.children} 
