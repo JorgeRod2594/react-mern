@@ -3,6 +3,7 @@ import Tarea from './Tarea'
 //importamos el context
 import proyectoContext from '../../context/proyectos/proyectoContext'
 import tareaContext from '../../context/tareas/tareaContext'
+import { CSSTransition, TransitionGroup } from 'react-transition-group' //importamos la libreria que añadimos con npm i react-transition-group
 //Este componente se muestra en Proyectos
 
 
@@ -45,12 +46,19 @@ const ListadoTareas = () => {
                 {tareasproyecto.length === 0 //utilizamos un ternario para mostrar la información
                     ? (<li className="tarea"><p>No hay tareas</p></li>)
 
-                    : tareasproyecto.map(tarea => ( //damos por implicito el return del componente tarea
-                            <Tarea 
-                                key={tarea.id}
-                                tarea={tarea}
-                            /> //como prop hacia el componente.
-                    ))
+                    : <TransitionGroup>{
+                        tareasproyecto.map(tarea => ( //damos por implicito el return del componente tarea
+                            <CSSTransition
+                                key={tarea.id}//Lo movemos aquí porque map es el primer hijo de tareasproyecto
+                                timeout={200} //Esta el laduración de la animación
+                                classNames="tarea"
+                            >
+                                <Tarea 
+                                    tarea={tarea}
+                                /> 
+                            </CSSTransition>
+                        ))}
+                      </TransitionGroup>
                 }
             </ul>
 
