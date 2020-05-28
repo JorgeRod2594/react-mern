@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 //importamos el context
 import proyectoContext from '../../context/proyectos/proyectoContext'
 import tareaContext from '../../context/tareas/tareaContext'
@@ -13,7 +13,18 @@ const FormTarea = () => {
 
     //Obtenemos la funcion del contexto tarea
     const tareasContext = useContext(tareaContext);
-    const { errortarea, obtenerTareas, agregarTarea, validarTarea } = tareasContext;
+    const { errortarea, tareaseleccionada, obtenerTareas, agregarTarea, validarTarea } = tareasContext;
+
+    //Effect que detecta si hay una tarea seleccionada para mostrarla
+    useEffect(() => {
+        if(tareaseleccionada !== null){
+            guardarTarea(tareaseleccionada); //Guarda la tarea seleccionada
+        } else {
+            guardarTarea({
+                nombre: '' //Para dejar limpio el formulario
+            })
+        }
+    },[tareaseleccionada])//Aqui va a estar revisando esta dependencia cambia para poder mostrarla
 
     //State del formulario. tarea es un objeto porque le tenemos que pasar un id y el id al proyecto que pertenece
     const [tarea, guardarTarea] = useState({
@@ -81,7 +92,7 @@ const FormTarea = () => {
                     <input 
                         type="submit"
                         className="btn btn-primario btn-submit btn-block"
-                        value="Agregar tarea"
+                        value={tareaseleccionada ? "Guardar cambios" : "Agregar tarea" }
                     />
                 </div>
             </form>
