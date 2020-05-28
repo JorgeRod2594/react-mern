@@ -6,7 +6,8 @@ import tareaReducer from './tareaReducer'
 import { TAREAS_PROYECTO, 
          AGREGAR_TAREA_P,
          VALIDAR_TAREA_P,
-         ELIMINAR_TAREA_P } from '../../types';
+         ELIMINAR_TAREA_P,
+         ESTADO_TAREA_P } from '../../types';
 
 const TareaState = (props) => {
 
@@ -63,6 +64,14 @@ const TareaState = (props) => {
         })
     }
     
+    //Modifica el estado de una tarea del proyecto seleccionado
+    const cambiarEstadoTarea = (tarea) => {
+        dispatch({
+            type: ESTADO_TAREA_P,
+            payload: tarea
+        })
+    }
+    
 
     return ( 
         <tareaContext.Provider
@@ -74,7 +83,8 @@ const TareaState = (props) => {
                 obtenerTareas,
                 agregarTarea,
                 validarTarea,
-                eliminarTarea
+                eliminarTarea,
+                cambiarEstadoTarea
             }}
         >
             {props.children} 

@@ -14,7 +14,7 @@ const Tarea = ({tarea}) => {
 
     //Obtenemos las tareas del proyecto seleccionado
     const tareasContext = useContext(tareaContext);
-    const { eliminarTarea,obtenerTareas } = tareasContext;
+    const { eliminarTarea, obtenerTareas, cambiarEstadoTarea } = tareasContext;
 
     //Funcion que se ejecuta cuando el usuario da clic en el botón eliminar tarea
     const deleteTarea = (id) => {
@@ -22,6 +22,18 @@ const Tarea = ({tarea}) => {
         obtenerTareas(proyectoselect[0].id);
     }
 
+    //Funcion que modifica el estado de las tareas
+    const cambiarEstado = (tarea) => {
+        //IMPORTANTE: Colocamos un if para revisar el estado de la tarea
+        if (tarea.estado) {
+            tarea.estado = false
+        }else {
+            tarea.estado = true
+        }
+        cambiarEstadoTarea(tarea); //Ya con el estado actualizado le pasamos la tarea
+    }
+
+    
     return ( 
         <li className="tarea sombra">
             <p>{tarea.nombre}</p>
@@ -32,12 +44,15 @@ const Tarea = ({tarea}) => {
                         <button
                             type="button"
                             className="completo"
+                            onClick={() => cambiarEstado(tarea)}//Esta es una funcion agregada porque la escucharan dos elementos a la vez
+                            //por eso se utiliza arrow function
                         >Completo</button>
                     )
                     :(
                         <button
                             type="button"
                             className="incompleto"
+                            onClick={() => cambiarEstado(tarea)}
                         >Incompleto</button>
                     )
                 }

@@ -24,7 +24,7 @@ export default (state, action) => {
         case AGREGAR_PROYECTOS:
             return {
                 ...state,//REalizamos una copia del state
-                proyectos: [...state.proyectos, action.payload],//Y al arreglo de objetos (proyectos), le agregamos el nuevo objetvo (el nuevo proyecto).
+                proyectos: [action.payload, ...state.proyectos],//Y al arreglo de objetos (proyectos), le agregamos el nuevo objetvo (el nuevo proyecto).
                 formulario:false, //Agregamos false en el formulario para ocultarlo despues de agregar y en NuevoProyecto reiniciamos el form.
                 errorformulario:false //Si contiene algo el formulario para crear proyecto oculta el mensaje y lo guarda.
             }
@@ -42,7 +42,9 @@ export default (state, action) => {
                         proyecto.id === action.payload //Si proyecto.id dentro del arreglo de proyecto es igual 
                         //al payload (pryecto seleccionado) lo extrae y crea un nuevo arreglo que se llamará proyecto.
                     )
-                )
+                ),//Si seleccionamos un proyecto pero ya habiamos intentado crear uno, desaparece con esto
+                errorformulario: false,
+                formulario:false
             }
 
         case ELIMINAR_PROYECTO:

@@ -78,7 +78,7 @@ const NuevoProyecto = () => {
             {formulario
                 ?( //si el valor del state es true regresa esto
                     <form
-                    className="formulario-nuevo-proyecto"
+                    className="formulario-nuevo-proyecto fade-in"
                     onSubmit={onSubmitProyecto}
                     >
                         <input 
