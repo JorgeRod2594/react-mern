@@ -16,7 +16,7 @@ export default (state, action) => {
         case AGREGAR_TAREA_P:
             return {
                 ...state,
-                tareas: [...state.tareas, action.payload],//creamos un nuevo arreglo de tareas + la nueva tarea a guardar
+                tareas: [action.payload, ...state.tareas],//creamos un nuevo arreglo de tareas + la nueva tarea a guardar
                 errortarea: false
             }
 

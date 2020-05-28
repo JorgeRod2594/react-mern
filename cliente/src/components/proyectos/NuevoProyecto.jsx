@@ -100,7 +100,7 @@ const NuevoProyecto = () => {
 
             {
                 //Validamos el error dentro del formulario, por si esta en blanco, si es true manda el mensaje 
-                errorformulario ? <p className="mensaje error">El nombre del proyecto es obligatorio</p> : null
+                errorformulario ? <p className="mensaje error zum">El nombre del proyecto es obligatorio</p> : null
             }
         </Fragment>
      );

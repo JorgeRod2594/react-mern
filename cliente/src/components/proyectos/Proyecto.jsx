@@ -24,7 +24,7 @@ const Proyecto = ({proyecto}) => {
     }
 
     return ( 
-        <li>
+        <li className="fade-in">
             <button
                 type="button"
                 className="btn btn-blank"

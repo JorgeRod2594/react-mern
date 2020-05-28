@@ -50,7 +50,7 @@ const ListadoTareas = () => {
                         tareasproyecto.map(tarea => ( //damos por implicito el return del componente tarea
                             <CSSTransition
                                 key={tarea.id}//Lo movemos aquí porque map es el primer hijo de tareasproyecto
-                                timeout={200} //Esta el laduración de la animación
+                                timeout={600} //Esta el laduración de la animación
                                 classNames="tarea"
                             >
                                 <Tarea 

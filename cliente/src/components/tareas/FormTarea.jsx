@@ -86,7 +86,7 @@ const FormTarea = () => {
                 </div>
             </form>
             {errortarea 
-            ? <p className="mensaje error">El nombre de tarea es obligatorio</p> 
+            ? <p className="mensaje error zum">El nombre de tarea es obligatorio</p> 
             : null}
         </div>
      );

@@ -4,6 +4,8 @@ import Bar from '../layout/Bar'
 import FormTarea from '../tareas/FormTarea'
 import ListadoTareas from '../tareas/ListadoTareas'
 
+import { CSSTransition, TransitionGroup } from 'react-transition-group' //importamos la libreria que añadimos con npm i react-transition-group
+
 
 const Proyectos = () => {
     //Este es el contenedor principal
