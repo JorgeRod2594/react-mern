@@ -17,6 +17,8 @@ const ListadoProyectos = () => {
     //para esto utilizamos useEffect
     useEffect(() => {
         obtenerProyectos();
+        //Quitamos el warning React Hook useEffect has a missing dependency: 'obtenerProyectos'.
+        // eslint-disable-next-line
     },[])//Para que corra una sola vez y obtenga los proyectos usamos un arreglo vacio
 
     //la primera vez que entra a la base de datos será null, por eso es necesaria esta validancion
