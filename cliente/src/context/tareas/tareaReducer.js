@@ -3,7 +3,8 @@ import { TAREAS_PROYECTO,
          VALIDAR_TAREA_P,
          ELIMINAR_TAREA_P,
          ESTADO_TAREA_P,
-         TAREA_SELECCIONADA } from '../../types';
+         TAREA_SELECCIONADA,
+         ACTUALIZAR_TAREA_P } from '../../types';
 
 export default (state, action) => {
     switch(action.type){
@@ -37,7 +38,8 @@ export default (state, action) => {
         case ESTADO_TAREA_P:
             return {
                 ...state,
-                tareas: state.tareasproyecto.map(tarea => tarea.id === action.payload.id ? action.payload : tarea )
+                tareas: state.tareas.map(tarea => tarea.id === action.payload.id ? 
+                        action.payload : tarea )
                 /*Iteramos en el array de tareas del proyecto, si encuentra el id de la tarea a modificar asigna
                 el nuevo valor mediante el payload. En caso contrario devuelve el array de tareas sin modificarlo. */
             }
@@ -46,6 +48,13 @@ export default (state, action) => {
             return {
                 ...state,
                 tareaseleccionada: action.payload
+            }
+
+        case ACTUALIZAR_TAREA_P:
+            return {
+                ...state,
+                tareas: state.tareas.map(tarea => tarea.id === action.payload.id ? 
+                        action.payload : tarea )
             }
 
         default: //siempre se retorna un default state

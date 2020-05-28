@@ -8,7 +8,8 @@ import { TAREAS_PROYECTO,
          VALIDAR_TAREA_P,
          ELIMINAR_TAREA_P,
          ESTADO_TAREA_P,
-         TAREA_SELECCIONADA } from '../../types';
+         TAREA_SELECCIONADA,
+         ACTUALIZAR_TAREA_P } from '../../types';
 
 const TareaState = (props) => {
 
@@ -81,6 +82,15 @@ const TareaState = (props) => {
             payload: tarea
         })
     }
+
+    //Edita o modifica una tarea seleccionada
+    const actualizarTarea = (tarea) => {
+        dispatch({
+            type: ACTUALIZAR_TAREA_P,
+            payload: tarea
+        })
+    }
+    
     
 
     return ( 
@@ -96,7 +106,8 @@ const TareaState = (props) => {
                 validarTarea,
                 eliminarTarea,
                 cambiarEstadoTarea,
-                guardarTareaActual
+                guardarTareaActual,
+                actualizarTarea
             }}
         >
             {props.children} 
