@@ -7,7 +7,8 @@ import { TAREAS_PROYECTO,
          AGREGAR_TAREA_P,
          VALIDAR_TAREA_P,
          ELIMINAR_TAREA_P,
-         ESTADO_TAREA_P } from '../../types';
+         ESTADO_TAREA_P,
+         TAREA_SELECCIONADA } from '../../types';
 
 const TareaState = (props) => {
 
@@ -25,7 +26,8 @@ const TareaState = (props) => {
         ], //arreglo vacio de tareas
         tareasproyecto: null, //Esta es la vista default para no seleccionar ninguna tarea
         //hasta que seleccione el usuario
-        errortarea: false
+        errortarea: false,
+        tareaseleccionada: null
     }
 
     //Creamos el dispatch para ejecutar las acciones
@@ -72,6 +74,14 @@ const TareaState = (props) => {
         })
     }
     
+    //Extraer una tarea seleccionada para editarla
+    const guardarTareaActual = (tarea) => {
+        dispatch({
+            type: TAREA_SELECCIONADA,
+            payload: tarea
+        })
+    }
+    
 
     return ( 
         <tareaContext.Provider
@@ -79,12 +89,14 @@ const TareaState = (props) => {
                 tareas: state.tareas, //Le pasamos el arreglo de taraes
                 tareasproyecto: state.tareasproyecto,
                 errortarea: state.errortarea,
+                tareaseleccionada: state.tareaseleccionada,
 
                 obtenerTareas,
                 agregarTarea,
                 validarTarea,
                 eliminarTarea,
-                cambiarEstadoTarea
+                cambiarEstadoTarea,
+                guardarTareaActual
             }}
         >
             {props.children} 
