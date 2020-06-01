@@ -3,10 +3,19 @@
 const Usuario = require('../models/Usuario');
 //importamos el package bcryptjs
 const bcryptjs = require('bcryptjs');
+//importamos validation result
+const { validationResult } = require('express-validator');
 
 //Como vamos a trabajar con express necesitamos pasarle un request y un response
 exports.crearUsuario = async (req, res) => {
     //Utilizamos try / catch para el manejo de errores y saber que es lo que este pasando
+
+    //Revisamos si hay errores
+    const errores = validationResult(req);
+    //Si existen errores manda el status de fallo y el o los errores
+    if( !errores.isEmpty() ) {
+        return res.status(400).json({errores: errores.array() })
+    }
 
     //Extraemos email y password con destructuring
     const { email, password } = req.body;
