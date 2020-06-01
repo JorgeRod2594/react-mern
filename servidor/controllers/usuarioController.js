@@ -1,6 +1,8 @@
 //Contiene los métodos asociados a los endpoints de usuario
 //Este controller se importa en el modelo usuarios.js
 const Usuario = require('../models/Usuario');
+//importamos el package bcryptjs
+const bcryptjs = require('bcryptjs');
 
 //Como vamos a trabajar con express necesitamos pasarle un request y un response
 exports.crearUsuario = async (req, res) => {
@@ -22,6 +24,12 @@ exports.crearUsuario = async (req, res) => {
 
         //Crea el nuevo usuario
         usuario = new Usuario(req.body);
+
+        //Hashear el password del usuario
+        const salt = await bcryptjs.genSalt(10);
+        //salt nos genera un nuevo hash único asociado al password, si el salt es mayor a 10 consume mas memoria pero si se puede utilizar
+        usuario.password = await bcryptjs.hash(password, salt);
+        //bcryptjs.hash(el string que va a encriptar, el salt que definimos de tamaño 10.);
 
         //Guarda el usuario creado
         await usuario.save();
