@@ -6,7 +6,7 @@ const conectarDB = async () => {
         //connect toma como 1er parametro la url a donde se conectará que podemos leer utilizando dotenv
         //y el segundo es un objeto de configuracion 
         await mongoose.connect(process.env.DB_MONGO, {
-            
+            useCreateIndex: true,
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useFindAndModify: false //Los tres se utilizan para el manejo de errores en los parser

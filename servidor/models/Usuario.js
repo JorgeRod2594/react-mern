@@ -1,4 +1,4 @@
-const mongoose = require ('mongoose');
+const mongoose = require('mongoose');
 
 //Definimos la estructura de la base de datos con Schema
 const UsuariosSchema = mongoose.Schema({
