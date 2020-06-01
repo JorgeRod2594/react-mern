@@ -9,6 +9,10 @@ const app = express();
 //Realizamos la conexion a la base de datos
 conectarDB();
 
+//Habilitamos express.json para poder leer datos que el usuario coloque en el formulario
+app.use(express.json({extended: true}))
+//express.json soporta diferentes funciones pero si utilizamos como header aplication.json permite leerlo.
+
 //Creamos el puerto para el servidor
 const PORT = process.env.PORT || 4000;
 
