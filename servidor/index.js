@@ -12,14 +12,14 @@ conectarDB();
 //Creamos el puerto para el servidor
 const PORT = process.env.PORT || 4000;
 
-//Importamos rutas utilizando verbos http
+//Importamos rutas utilizando verbos http (Esto le llamamos midleware)
 //Siempre tu back end debe de ser extendible a api
 app.use('/api/usuarios', require('./routes/usuarios'));
 
 //Definimos la pagina principal
-app.get('/', (req, res) => {
-    res.send('Hola mundo..')
-})
+// app.get('/', (req, res) => {
+//     res.send('Hola mundo..')
+// })
 
 //Arrancamos el servidor y mandara un mensaje con el puerto de conexion
 app.listen(PORT, () => {
