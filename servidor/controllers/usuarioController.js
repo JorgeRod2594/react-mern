@@ -5,6 +5,8 @@ const Usuario = require('../models/Usuario');
 const bcryptjs = require('bcryptjs');
 //importamos validation result
 const { validationResult } = require('express-validator');
+//importamos jsonWebToken
+const JWT = require('jsonwebtoken');
 
 //Como vamos a trabajar con express necesitamos pasarle un request y un response
 exports.crearUsuario = async (req, res) => {
@@ -42,8 +44,28 @@ exports.crearUsuario = async (req, res) => {
 
         //Guarda el usuario creado
         await usuario.save();
-        //Mensaje de confirmacion de operacion
-        res.status(200).send({ msg: 'Usuario creado correctamente.' });
+
+        //Crear y firmar el JWT
+        //Crear el JWT
+        //Como tenemos un token con el id del usuario cuando inicie sesion con ese id podemos 
+        //hacer una consulta a la base de datos y traernos los proyectos creados por el.
+        const payload = {
+            //Guardamos datos del usuario que se esta guardando en usuario.save();
+            usuario: {
+                id: usuario.id
+            }
+        }
+        //Firmarlo
+        //firmamos con sing y pasamos el payload, la palabra secreta y la configuracion
+        JWT.sign(payload, process.env.PSECRETA, {
+            expiresIn: 3600000 //El token expira en una hora representada en milisegundos
+        }, (error, token) => { //Hacemos un call back con un arrow para revisar si hubo un error al crear el token
+            if(error) 
+                throw error; //Manda el error si existe
+
+            //Si no, manda el token de confirmacion de operacion
+            res.status(200).send({ token: token });
+        });
 
     } catch (error) {
         console.log(error);
