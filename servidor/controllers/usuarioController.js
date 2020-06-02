@@ -58,7 +58,7 @@ exports.crearUsuario = async (req, res) => {
         //Firmarlo
         //firmamos con sing y pasamos el payload, la palabra secreta y la configuracion
         JWT.sign(payload, process.env.PSECRETA, {
-            expiresIn: 3600000 //El token expira en una hora representada en milisegundos
+            expiresIn: 3600 //El token expira en una hora representada en milisegundos
         }, (error, token) => { //Hacemos un call back con un arrow para revisar si hubo un error al crear el token
             if(error) 
                 throw error; //Manda el error si existe

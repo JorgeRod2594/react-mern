@@ -19,6 +19,7 @@ const PORT = process.env.PORT || 4000;
 //Importamos rutas utilizando verbos http (Esto le llamamos midleware)
 //Siempre tu back end debe de ser extendible a api
 app.use('/api/usuarios', require('./routes/usuarios'));
+app.use('/api/auth', require('./routes/auth'));
 
 //Definimos la pagina principal
 // app.get('/', (req, res) => {
