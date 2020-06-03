@@ -5,7 +5,7 @@ const authController = require('../controllers/authController')
 const { check } = require('express-validator');//Librearia para crear nuestras reglas de validacion
 
 //Crea un usuario, recibe una respuesta de tipo post hacia la url de abajo.
-// api/usuarios
+// api/auth
 router.post('/', 
     [
         //check(atributo a validar, mensaje a mostrar en caso de error) que caracteristica validaré
