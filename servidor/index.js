@@ -20,6 +20,7 @@ const PORT = process.env.PORT || 4000;
 //Siempre tu back end debe de ser extendible a api
 app.use('/api/usuarios', require('./routes/usuarios'));
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/proyectos', require('./routes/proyectos'));
 
 //Definimos la pagina principal
 // app.get('/', (req, res) => {
