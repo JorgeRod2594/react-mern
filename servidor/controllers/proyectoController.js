@@ -3,6 +3,13 @@ const { validationResult } = require('express-validator');
 
 exports.crearProyecto = async(req, res) => {
 
+    //Revisamos si hay errores
+    const errores = validationResult(req);
+    //Si existen errores manda el status de fallo y el o los errores
+    if( !errores.isEmpty() ) {
+        return res.status(400).json({errores: errores.array() })
+    }
+
     try {
 
         //Creamos un nuevo proyecto

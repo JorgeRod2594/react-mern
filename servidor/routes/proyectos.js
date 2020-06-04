@@ -7,9 +7,12 @@ const autentification = require('../middleware/autentification');
 
 //Crea proyectos
 // api/proyectos
-router.post('/', 
+router.post('/',
     autentification,//Verifica primero si el usuario esta logueado utilizando el middleware y el token
     //Si esta logueado pasa a crear el proyecto.
+    [
+        check('nombre', 'El nombre del proyecto es necesario').not().isEmpty()
+    ],
     proyectoController.crearProyecto //Carga el controlador y despues ejecuta la funcion que se llame
 
 );
