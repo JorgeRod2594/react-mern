@@ -17,10 +17,22 @@ router.post('/',
 
 );
 
+//Obtener todos los proyectos
 router.get('/', 
     autentification,//Verifica primero si el usuario esta logueado utilizando el middleware y el token
     //Si esta logueado pasa a crear el proyecto.
-    proyectoController.crearProyecto //Carga el controlador y despues ejecuta la funcion que se llame
+    proyectoController.obtenerProyectos //Carga el controlador y despues ejecuta la funcion que se llame
+
+);
+
+//Actualizar un proyecto via ID
+router.put('/:id', 
+    autentification,//Verifica primero si el usuario esta logueado utilizando el middleware y el token
+    //Si esta logueado pasa a crear el proyecto.
+    [
+        check('nombre', 'El nombre del proyecto es necesario').not().isEmpty()
+    ],
+    proyectoController.actualizarProyecto //Carga el controlador y despues ejecuta la funcion que se llame
 
 );
 
