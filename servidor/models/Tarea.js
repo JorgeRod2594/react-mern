@@ -17,7 +17,7 @@ const tareaShema = mongoose.Schema({
     },
     creado: {
         type: Date,
-        default: Date.now()//Nos da una fecha en el momento que se crea el proyecto
+        default: Date.now()//Nos da una fecha en el momento que se crea la tarea
     },
 
 })

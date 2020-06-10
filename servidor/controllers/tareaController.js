@@ -12,20 +12,29 @@ exports.crearTarea = async (req, res) => {
         return res.status(400).json({errores: errores.array() })
     }
 
+
     try {
+        
+        //Extraemos el proyecto y comprobamos si existe
+        const { proyecto } = req.body;
 
-        //Revisamos el ID
-        let proyecto = await Proyecto.findById(req.params.id);
-
-        //Verificar si el proyecto existe o no
-        if(!proyecto) {
-            return res.status(404).json({ msg: 'Proyecto no encontrado' })
+        //Validamos que el proyecto existas
+        const existeProyecto = await Proyecto.findById(proyecto);
+        if(!existeProyecto) {
+            return res.status(404).json({msg: 'Proyecto no encontrado'})
         }
 
-        //Verificar el creador del proyecto
-        if(proyecto.autor.toString() !== req.usuario.id) {
+        //Revisar si el proyecto actual pertenece al usuario autenticado.
+        if(existeProyecto.autor.toString() !== req.usuario.id) {
             return res.status(401).json({ msg: 'No autorizado' });
         }
+
+        //Creamos la tarea y la guardamos
+        const tarea = new Tarea(req.body);//Contiene el nombre del proyecto y la tarea.
+        await tarea.save();
+
+        //Mandamos el json de respuesta con la tarea creada
+        res.json({ tarea });
         
     } catch (error) {
         console.log(error);

@@ -11,7 +11,8 @@ router.post('/',
     autentification,//Verifica primero si el usuario esta logueado utilizando el middleware y el token
     //Si esta logueado pasa a crear el proyecto.
     [
-        check('nombre', 'El nombre de la tarea es necesario').not().isEmpty()
+        check('nombre', 'El nombre de la tarea es necesario').not().isEmpty(),
+        check('proyecto', 'La tarea debe de estar asociada a un pryecto.').not().isEmpty()
     ],
     tareaController.crearTarea //Carga el controlador y despues ejecuta la funcion que se llame
 
