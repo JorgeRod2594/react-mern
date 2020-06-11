@@ -18,4 +18,10 @@ router.post('/',
 
 );
 
+router.get('/',
+    autentification,
+    tareaController.obtenerTareas
+
+);
+
 module.exports = router;
