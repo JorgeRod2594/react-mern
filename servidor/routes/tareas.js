@@ -18,9 +18,21 @@ router.post('/',
 
 );
 
+//Obtener las tareas de un proyecto por medio de id
 router.get('/',
     autentification,
     tareaController.obtenerTareas
+
+);
+
+//Actualizar una tarea via ID
+router.put('/:id', 
+    autentification,//Verifica primero si el usuario esta logueado utilizando el middleware y el token
+    //Si esta logueado pasa a crear el proyecto.
+    [
+        check('nombre', 'El nombre de la tarea es necesario').not().isEmpty()
+    ],
+    tareaController.actualizarTarea //Carga el controlador y despues ejecuta la funcion que se llame
 
 );
 

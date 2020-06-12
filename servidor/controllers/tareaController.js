@@ -43,7 +43,7 @@ exports.crearTarea = async (req, res) => {
     
 }
 
-//Obtiene todos las tareas del proyecto actual
+//Obtiene todas las tareas del proyecto actual
 exports.obtenerTareas = async (req, res) => {
     try {
 
@@ -71,4 +71,56 @@ exports.obtenerTareas = async (req, res) => {
     } catch (error) {
         res.status(500).send('Hubo un error.');
     }
+}
+
+//Actualiza una tarea seleccionada del proyecto actual
+exports.actualizarTarea = async (req, res) => {
+
+    try {
+
+        //Extraemos el proyecto y comprobamos si existe y tambien necesitamos el 
+        //nombre de la tarea y el estado de la tarea
+        const { proyecto, nombre, estado } = req.body;
+
+        //Validamos que el proyecto existas
+        const existeProyecto = await Proyecto.findById(proyecto);
+        if(!existeProyecto) {
+            return res.status(404).json({msg: 'Proyecto no encontrado'})
+        }
+
+        //Revisamos si la tarea existe, params obtiene al id que se le pasa desde la url
+        let tarea = await Tarea.findById(req.params.id);
+        if(!tarea) {
+            return res.status(404).json({msg: 'Tarea no encontrada.'})
+        }
+
+        //Revisar si el proyecto actual pertenece al usuario autenticado.
+        if(existeProyecto.autor.toString() !== req.usuario.id) {
+            return res.status(401).json({ msg: 'No autorizado' });
+        }
+    
+        
+        //Crear un nuevo objeto con la nueva informacion
+        const tareaActualizada = {};//Aqui se almacenará el proyecto actualizado
+
+        //Añadimos más if si queremos validar más datos
+        if(nombre) {
+            tareaActualizada.nombre = nombre; //Asignamos el dato al nuevo array
+        }
+        if(estado) {
+            tareaActualizada.estado = estado; //Asignamos el dato al nuevo array
+        }
+        
+        //Actualizar
+        //Consulta mongo: buscar y actualizar where id = req.params.id, con que lo actualizaremos, indicamos que es true
+        tarea = await Tarea.findByIdAndUpdate( {_id: req.params.id }, {$set: tareaActualizada },{new: true} )
+
+        //Retornamos el json de respuesta
+        res.json({ tarea });
+
+
+    } catch (error) {
+        res.status(500).send('Hubo un error.');
+    }
+
 }
