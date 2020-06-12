@@ -124,3 +124,43 @@ exports.actualizarTarea = async (req, res) => {
     }
 
 }
+
+
+
+
+//Eliminar un proyecto por su id
+exports.eliminarTarea = async (req, res) => {
+
+    try {
+
+        //Extraemos el proyecto y verificamos si existe
+        const { proyecto } = req.body;
+
+        //Validamos que el proyecto exista
+        const existeProyecto = await Proyecto.findById(proyecto);
+        if(!existeProyecto) {
+            return res.status(404).json({msg: 'Proyecto no encontrado'})
+        }
+
+        //Revisamos si la tarea existe, params obtiene al id que se le pasa desde la url
+        let tarea = await Tarea.findById(req.params.id);
+        if(!tarea) {
+            return res.status(404).json({msg: 'Tarea no encontrada.'})
+        }
+
+        //Revisar si el proyecto actual pertenece al usuario autenticado.
+        if(existeProyecto.autor.toString() !== req.usuario.id) {
+            return res.status(401).json({ msg: 'No autorizado' });
+        }
+
+        //Eliminamos la tarea.
+        tarea = await Tarea.findOneAndRemove( {_id: req.params.id} )
+        
+        //Retornamos el json de respuesta
+        res.json({ msg: 'Tarea eliminada.' });
+        
+    } catch (error) {
+        res.status(500).send('Hbo un error');
+    }
+
+}
