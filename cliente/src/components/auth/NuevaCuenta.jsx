@@ -35,14 +35,25 @@ const NuevaCuenta = () => {
         e.preventDefault();
 
         //Validar que no exitan campos vacios
-        if( nombre.trim() === '' || email.trim() === '' ||
-            password.trim() === '' || cpassword.trim() === ''){
-                return mostrarAlerta('Todos los campos son obligatorios','error');
+        if(nombre.trim() === '' || 
+            email.trim() === '' ||
+            password === '' || 
+            cpassword === ''){
+                mostrarAlerta('Todos los campos son obligatorios','error');
+                return;
             }
 
         //Validar password (mínimo 6 caracteres).
+        if(password.length < 6){
+            mostrarAlerta('El password debe de ser mayor a 6 caracteres','error');
+            return;
+        }
 
         //Validar que los dos password sean iguales.
+        if(password !== cpassword) {
+            mostrarAlerta('Las contraseñas deben coincidir','error');
+            return;
+        }
 
         //Pasarlo al action
 
