@@ -1,12 +1,16 @@
 import React, { useState, useContext } from 'react'
 import {Link} from 'react-router-dom'
 import AlertaContext from '../../context/alertas/alertaContext';
+import AuthContext from '../../context/autenticacion/authContext';
 
 const NuevaCuenta = () => {
 
     //Extraemos los valores del context
     const alertaContext = useContext(AlertaContext);
     const {alerta, mostrarAlerta} = alertaContext
+
+    const authContext = useContext(AuthContext);
+    const {registrarUsuario} = authContext;
 
     //Creamos el state que para este componente. Nos permite guardar los datos de sesion
     const [nusuario, guardarUsuario] = useState({
@@ -17,7 +21,7 @@ const NuevaCuenta = () => {
     });
 
     //Extraemos de usuario
-    const {nombre, email, password, cpassword} = nusuario;
+    const {nombre, email, password, confpassword} = nusuario;
 
     //declaramos la funcion que se estará ejecutando cada vez que el usuario escriba algo.
     const onChangeLogin = (e) => {
@@ -38,7 +42,7 @@ const NuevaCuenta = () => {
         if(nombre.trim() === '' || 
             email.trim() === '' ||
             password === '' || 
-            cpassword === ''){
+            confpassword === ''){
                 mostrarAlerta('Todos los campos son obligatorios','error');
                 return;
             }
@@ -50,13 +54,17 @@ const NuevaCuenta = () => {
         }
 
         //Validar que los dos password sean iguales.
-        if(password !== cpassword) {
+        if(password !== confpassword) {
             mostrarAlerta('Las contraseñas deben coincidir','error');
             return;
         }
 
         //Pasarlo al action
-
+        registrarUsuario({
+            nombre,
+            email,
+            password
+        });
     }
 
     return ( 
@@ -104,7 +112,7 @@ const NuevaCuenta = () => {
                         <input type="password"
                         id="confpassword"
                         name="confpassword"
-                        value={cpassword}
+                        value={confpassword}
                         placeholder="Confirmar password"
                         onChange={onChangeLogin}/>
                     </div>
