@@ -1,16 +1,31 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import {Link} from 'react-router-dom'
 import AlertaContext from '../../context/alertas/alertaContext';
 import AuthContext from '../../context/autenticacion/authContext';
 
-const NuevaCuenta = () => {
+const NuevaCuenta = (props) => { //Para hacer la redireccion, porque utilizamos React Router Dom tenemos acceso a history
 
     //Extraemos los valores del context
     const alertaContext = useContext(AlertaContext);
     const {alerta, mostrarAlerta} = alertaContext
 
     const authContext = useContext(AuthContext);
-    const {registrarUsuario} = authContext;
+    const { mensaje, autenticado, registrarUsuario } = authContext;
+
+    //En caso de que el usuario se haya autenticado, registrado o sea un registro duplicado
+    useEffect(() => {
+        console.log(autenticado)
+        //Si el usuario está autenticado
+        if(autenticado){
+            props.history.push('/proyectos');
+        }
+
+        if(mensaje) { //Caso contrario mostramos
+            mostrarAlerta(mensaje.msg,'error');
+            return;
+        }
+        
+    }, [mensaje, autenticado, props.history])//Dependencias que le pasamos y va a escuchar
 
     //Creamos el state que para este componente. Nos permite guardar los datos de sesion
     const [nusuario, guardarUsuario] = useState({
@@ -19,6 +34,7 @@ const NuevaCuenta = () => {
         password:'',
         confpassword:''
     });
+
 
     //Extraemos de usuario
     const {nombre, email, password, confpassword} = nusuario;
@@ -36,8 +52,9 @@ const NuevaCuenta = () => {
     //Validaremos con express que tenga un email valido
     //Cuando el usuario quiere iniciar sesion
     const onSubmitLogin = (e) => {
+        
         e.preventDefault();
-
+        
         //Validar que no exitan campos vacios
         if(nombre.trim() === '' || 
             email.trim() === '' ||
@@ -64,7 +81,15 @@ const NuevaCuenta = () => {
             nombre,
             email,
             password
-        });
+        })
+
+        guardarUsuario({
+        nombre:'',
+        email:'',
+        password:'',
+        confpassword:''
+        })
+
     }
 
     return ( 
@@ -120,7 +145,9 @@ const NuevaCuenta = () => {
                     {alerta ? (<div className={`alerta zum ${alerta.categoria}`}>{alerta.msg}</div>): null}
 
                     <div className="campo-form">
+
                         <input type="submit" className="btn btn-primario btn-block" value="Iniciar Sesion"/>
+                        
                     </div>
                 </form>
                 <Link to={'/'} className="enlace-cuenta">

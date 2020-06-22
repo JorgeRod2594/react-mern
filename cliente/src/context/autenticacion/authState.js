@@ -18,31 +18,40 @@ const AuthState = props => {
         autenticado: null, //Si el usuario está autenticado
         usuario: null, //Informacion del usuario para ponerlo en el navbar y poder mostrar sus
         //proyectos y tareas utilizando su id.
-        mensaje: null //Está relacionado con las alertas.
+        mensaje: null, //Está relacionado con las alertas.
+
     }
 
     const [state, dispatch] = useReducer(authReducer, initialState);
 
-
     //Funciones
 
     const registrarUsuario = async datos => {
-        try {
+        
+        try { 
             //importamos nuestro cliente de axios para comunicarnos con el back
             //le pasamos en el post la ruta y los datos
             const respuesta = await clienteAxios.post('/api/usuarios', datos);
-            console.log(respuesta);//Para saber que valores estamos obteniendo
+            //console.log(respuesta.data);//Para saber que valores estamos obteniendo
 
             dispatch({
-                type: REGISTRO_EXITOSO
+                type: REGISTRO_EXITOSO,
+                payload: respuesta.data
             })
+
             
         } catch (error) {
-            console.log(error);
+            // console.log(error.response.data.msg);
+            const alerta = {
+                msg : error.response.data.msg,
+                categoria: 'alerta-error'
+            }
 
             dispatch({
-                type: REGISTRO_ERROR
+                type: REGISTRO_ERROR,
+                payload: alerta
             })
+
         }
     }
     
